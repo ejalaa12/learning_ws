@@ -9,7 +9,8 @@ class CarNode():
     def __init__(self):
         rospy.init_node('car_sim')
         rospy.Subscriber('twist2d', Twist, self.update_command)
-        dt = 0.05
+        dt = rospy.get_param('~dt', default=0.05)
+        noisy = rospy.get_param('~noisy', default=False)
         self.rate = rospy.Rate(1./dt)
         self.car = CarModel(dt=dt)
         self.speed, self.steering = 0, 0

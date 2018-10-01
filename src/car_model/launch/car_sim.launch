@@ -1,5 +1,10 @@
 <launch>
-  <node pkg="car_model" type="car_node.py" name="car_sim"/>
+  <arg name="dt" default="0.05"/>
+  <arg name="noisy" default="false"/>
+  <node pkg="car_model" type="car_node.py" name="car_sim">
+    <param name="dt" value="$(arg dt)"/>
+    <param name="noisy" value="$(arg noisy)"/>
+  </node>
   <node pkg="car_model" type="pose2d_to_poseStamped.py" name="conv">
     <remap from="pose2d" to="car_pose"/>
   </node>
